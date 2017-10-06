@@ -1,0 +1,15 @@
+[Unit]
+Description=Controls the IPTables settings for the system.
+Documentation=man:iptables(8)
+After=network.target
+AssertPathExists=/etc/iptables.up.rules
+AssertPathExists=/etc/iptables.down.rules
+
+[Install]
+WantedBy=network.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/sbin/iptables-restore /etc/iptables.up.rules ; /usr/sbin/iptables-user-restore /etc/iptables.up.rules.d
+ExecStop=/sbin/iptables-restore /etc/iptables.down.rules ;

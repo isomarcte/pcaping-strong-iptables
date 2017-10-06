@@ -1,0 +1,13 @@
+#!/bin/bash
+
+set -e
+
+declare -r DIR="${1:?'Missing directory.'}"
+
+if [ -d "$DIR" ]
+then
+    for f in $(ls -1 "$DIR")
+    do
+        command iptables-restore -n "${DIR}/${f}"
+    done
+fi
