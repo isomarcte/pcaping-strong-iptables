@@ -5,6 +5,8 @@ IPTABLES := ${DESTDIR}/etc/iptables.up.rules.d
 USR_SBIN := ${DESTDIR}/usr/sbin
 SYSTEMD := ${DESTDIR}/usr/lib/systemd/system
 
+all:
+
 install:
 	install -d ${ETC}
 	install -d ${IPTABLES}

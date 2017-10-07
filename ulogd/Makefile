@@ -1,6 +1,8 @@
 .PHONE: install
 
-TARGET := ${DESTDIR}/etc
+TARGET := ${DESTDIR}/usr/share/pcaping-strong-iptables
+
+all:
 
 install:
 	install -d ${TARGET}
