@@ -1,0 +1,2 @@
+language: c # Not really, but it's the closest thing
+script: sudo make install
