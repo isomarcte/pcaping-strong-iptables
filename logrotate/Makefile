@@ -1,6 +1,6 @@
 .PHONY: install
 
-TARGET := ${DESTDIR}/etc/logrotate.d
+TARGET := ${DESTDIR}/usr/share/pcaping-strong-iptables
 
 all:
 
