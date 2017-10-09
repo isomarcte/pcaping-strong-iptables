@@ -57,6 +57,7 @@ COMMIT
 -A OUTPUT -p udp -j OUT_UDP
 -A OUTPUT -p icmp -j OUT_ICMP
 -A OUTPUT -m comment --comment "Log bad output" -j LOG --log-prefix "IPTables: Invalid OUT: " --log-level 5 --log-tcp-options --log-ip-options --log-uid
+-A OUTPUT -j REJECT --reject-with icmp-admin-prohibited
 -A BLACKLIST -p tcp -m comment --comment "Deal with bad TCP input traffic." -j IN_TCP_BLACKLIST
 -A BLACKLIST -p udp -m comment --comment "Deal with bad UDP input traffic." -j IN_UDP_BLACKLIST
 -A BLACKLIST -m comment --comment "Deal with bad other input traffic." -j IN_OTHER_BLACKLIST
