@@ -67,9 +67,12 @@ COMMIT
 -A IN_OTHER_BLACKLIST -m comment --comment "Drop all bad packets" -j DROP
 -A IN_TCP -m comment --comment "Deal with blacklisted traffic." -m recent --update --seconds 60 --name TCP-PORTSCAN --mask 255.255.255.255 --rsource -j IN_TCP_BLACKLIST
 -A IN_TCP -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m tcp --dport 22 -m conntrack --ctstate NEW -m comment --comment "Allow SSH" -j ACCEPT
+-A IN_TCP -p tcp -m tcp --dport 5353 -m comment --comment "Allow LLMR" -j ACCEPT
 -A IN_TCP_BLACKLIST -m comment --comment "PCAP blacklisted incoming TCP traffic." -j NFLOG --nflog-prefix  "IPTables: Bad TCP IN: " --nflog-group 1
 -A IN_TCP_BLACKLIST -m comment --comment "Drop all bad packets" -j DROP
 -A IN_UDP -m comment --comment "Deal with blacklisted traffic." -m recent --update --seconds 60 --name UPD-PORTSCAN --mask 255.255.255.255 --rsource -j IN_UDP_BLACKLIST
+-A IN_UDP -p udp -m udp --dport 137 -m comment --comment "Allow NetBIOS name resolution." -j ACCEPT
+-A IN_UDP -p udp -m udp --dport 5353 -m comment --comment "Allow mDNS" -j ACCEPT
 -A IN_UDP_BLACKLIST -m comment --comment "PCAP blacklisted incoming UDP traffic." -j NFLOG --nflog-prefix  "IPTables: Bad UDP IN: " --nflog-group 1
 -A IN_UDP_BLACKLIST -m comment --comment "Drop all bad packets" -j DROP
 -A OUT_ICMP -p icmp -m comment --comment "Allow out going echo-request packets" -m icmp --icmp-type 8 -m conntrack --ctstate NEW -j ACCEPT
@@ -80,5 +83,7 @@ COMMIT
 -A OUT_TCP -p tcp -m comment --comment "Allow git protocol" -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m tcp --dport 9418 -m conntrack --ctstate NEW -j ACCEPT
 -A OUT_TCP -p tcp -m comment --comment "Allow GPG" -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -m tcp --dport 11371 -m conntrack --ctstate NEW -j ACCEPT
 -A OUT_UDP -p udp -m comment --comment "Allow DNS" -m udp --dport 53 -m conntrack --ctstate NEW -j ACCEPT
+-A OUT_UDP -p udp -m udp --dport 137 -m comment --comment "Allow NetBIOS name resolution." -j ACCEPT
+-A OUT_UDP -p udp -m udp --dport 5353 -m comment --comment "Allow mDNS" -j ACCEPT
 COMMIT
 # Completed on Fri Oct  6 10:08:22 2017
